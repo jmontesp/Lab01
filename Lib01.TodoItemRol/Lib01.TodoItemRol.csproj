@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lab01.DataPersistance\Lab01.DataPersistance.csproj" />
+    <ProjectReference Include="..\Lab01.Infrastructure\Lab01.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
