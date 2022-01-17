@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lab01.Infrastructure\Lab01.Infrastructure.csproj" />
-    <ProjectReference Include="..\Lib01.TodoItemRol\Lib01.TodoItemRol.csproj" />
+    <ProjectReference Include="..\Lib01.TodoItemRol\Lab01.TodoItemRol.csproj" />
   </ItemGroup>
 
 </Project>
