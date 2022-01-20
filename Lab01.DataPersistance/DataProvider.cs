@@ -36,7 +36,10 @@ namespace Lab01.DataPersistance
                 return instance;
             }
         }
-        private DataProvider() { }
+        private DataProvider() 
+        {
+            Database.EnsureCreated();
+        }
 
         #endregion
 

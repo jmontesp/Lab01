@@ -24,21 +24,21 @@ namespace Lab01.Test
             {
                 MethodToTest = "CreateTodoItem",
                 Description ="Inserta un registro en una base de datos vacía",
-                Params = new TodoItem { Id = 1, Title = "todo", DueDate = new DateTime(2022, 1, 30), Duration = 1, Completed = false },
+                Params = new TodoItem { Id = 1, Title = "todo", DueDate = new DateTime(2022, 6, 30), Duration = 1, Completed = false },
                 Expected = false
             },
             new TodoItemRolTest
             {
                 MethodToTest = "CreateTodoItem",
                 Description ="Inserta un registro en una base de datos con datos",
-                Params = new TodoItem { Id = 1, Title = "todo 2", DueDate = new DateTime(2022, 1, 30), Duration = 1, Completed = false },
+                Params = new TodoItem { Id = 1, Title = "todo 2", DueDate = new DateTime(2022, 6, 30), Duration = 1, Completed = false },
                 Expected = false
             },
             new TodoItemRolTest
             {
                 MethodToTest = "CreateTodoItem",
                 Description ="Inserta un registro en una base de datos con datos",
-                Params = new TodoItem { Id = 1, Title = "todo 3", DueDate = new DateTime(2022, 1, 30), Duration = 1, Completed = false },
+                Params = new TodoItem { Id = 1, Title = "todo 3", DueDate = new DateTime(2022, 6, 30), Duration = 1, Completed = false },
                 Expected = false
             },
             new TodoItemRolTest
@@ -79,7 +79,7 @@ namespace Lab01.Test
             {
                 MethodToTest = "UpdateTodoItem",
                 Description ="Intenta actualizar un registro con datos correctos",
-                Params = new TodoItem { Id = 3, Title = "todo 3 modificado", DueDate = new DateTime(2022, 1, 30), Duration = 1, Completed = false },
+                Params = new TodoItem { Id = 3, Title = "todo 3 modificado", DueDate = new DateTime(2022, 6, 30), Duration = 1, Completed = false },
                 Expected = false
             },
             new TodoItemRolTest
@@ -88,6 +88,13 @@ namespace Lab01.Test
                 Description ="Obtener las tareas creadas",
                 Expected = true
             },
+            new TodoItemRolTest
+            {
+                MethodToTest = "CreateTodoItem",
+                Description ="Excede las horas permitidas para un día",
+                Params = new TodoItem { Id = 1, Title = "todo 10", DueDate = new DateTime(2022, 6, 30), Duration = 7, Completed = false },
+                Expected = false
+            },
         };
         private static void TestTodoItemRol()
         {
@@ -95,7 +102,8 @@ namespace Lab01.Test
             int counter = 0;
             int successful = 0;
             var rol = ManageTodoItems.Instance;
-            
+            rol.TimeExceeded += Program.OnTimeExceeded;
+
             Response response = null;
             foreach (var test in tests)
             {
@@ -123,6 +131,11 @@ namespace Lab01.Test
                 Console.WriteLine($"\n\t{counter}, {test.Description}, correcto = {response.Success == test.Expected}, mensaje = {response.Message}");
             }
             Console.WriteLine($"\nFin de los test, {counter} tests realizados, {successful} correctos");
+        }
+
+        private static void OnTimeExceeded(Response args)
+        {
+            Console.WriteLine(args.Message);
         }
         #endregion
     }

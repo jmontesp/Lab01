@@ -62,7 +62,7 @@ namespace Lib01.TodoItemRol
         /// Se lanza cuando la duración total de las tareas de un día excede las 8 horas
         /// </summary>
 
-        event DataPersistenceChange TimeExceeded;
+        public event DataPersistenceChange TimeExceeded;
 
         #endregion
 
@@ -76,10 +76,10 @@ namespace Lib01.TodoItemRol
 
         private void OnDataPersistenceChanged(Response args)
         {
-            Response response = this.dataProvider.ReadAllTodoItems();
-            if(response.Success)
+            Response dtResponse = this.dataProvider.ReadAllTodoItems();
+            if(dtResponse.Success)
             {
-                var orderedList = ((List<TodoItem>)response.Result).OrderBy(t => t.DueDate).ToList<TodoItem>();
+                var orderedList = ((List<TodoItem>)dtResponse.Result).OrderBy(t => t.DueDate).ToList<TodoItem>();
                 DateTime currentDate = orderedList[0].DueDate;
                 decimal totalDuration = 0;
                 foreach(TodoItem todoItem in orderedList)
